@@ -65,9 +65,20 @@ p{margin:0 0 14px;max-width:62ch}
 .priorities b{display:block;font-weight:700;font-size:20px;letter-spacing:.02em;text-transform:uppercase;line-height:1.25}
 .priorities span{display:block;color:var(--charcoal)}
 
-.film{margin:32px auto 0;max-width:420px}
+.films{margin:32px auto 0;display:grid;gap:28px;max-width:420px}
+.film{margin:0}
 .film video{display:block;width:100%;height:auto;background:var(--navy);border:6px solid var(--red)}
 .film figcaption{margin-top:10px;text-align:center;font-weight:600;font-size:15px;color:var(--charcoal)}
+
+/* Latest from Della: the three most recent daily posts, self-hosted cards linking to Facebook */
+.posts{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.posts li{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start}
+.posts img{width:96px;height:120px;object-fit:cover;border:3px solid var(--red)}
+.posts time{display:block;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.posts b{display:block;font-weight:700;font-size:19px;line-height:1.25;margin:2px 0 4px}
+.posts p{margin:0 0 6px;font-size:15px;color:var(--charcoal);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.posts a{font-weight:600;font-size:15px}
+.more{margin:24px 0 0;font-weight:600}
 
 .about{background:#f6f5f8}
 .band{background:var(--navy);color:#fff;text-align:center;padding:22px 0;border-top:8px solid var(--red)}
@@ -101,6 +112,10 @@ footer small{display:block;margin-top:6px;font-weight:400;font-size:13px;opacity
   .priorities{grid-template-columns:1fr 1fr;column-gap:48px}
   .priorities li:nth-last-child(2){border-bottom:0}
   .two{grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .films{max-width:none;grid-template-columns:repeat(3,1fr);gap:32px}
+  .posts{grid-template-columns:repeat(3,1fr);gap:32px}
+  .posts li{grid-template-columns:1fr;gap:12px}
+  .posts img{width:100%;height:auto;aspect-ratio:4/5}
   .band p span:last-child{display:inline}
   section{padding:60px 0}
 }
@@ -130,12 +145,26 @@ footer small{display:block;margin-top:6px;font-weight:400;font-size:13px;opacity
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l3.1 6.9 7.5.8-5.6 5 1.6 7.4L12 17.9l-6.6 3.8L7 14.3l-5.6-5 7.5-.8z"/></svg><div><b>Affordable water</b><span>Responsible decisions for our community.</span></div></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l3.1 6.9 7.5.8-5.6 5 1.6 7.4L12 17.9l-6.6 3.8L7 14.3l-5.6-5 7.5-.8z"/></svg><div><b>A strong community voice</b><span>Listening, leading, and working together for our shared water future.</span></div></li>
       </ul>
-      <figure class="film">
-        <video controls playsinline preload="metadata" width="720" height="900" poster="assets/safe-plentiful-affordable-poster.jpg">
-          <source src="assets/safe-plentiful-affordable.mp4" type="video/mp4">
-        </video>
-        <figcaption>Watch: Della's three priorities, in 30 seconds.</figcaption>
-      </figure>
+      <div class="films">
+        <figure class="film">
+          <video controls playsinline preload="metadata" width="720" height="900" poster="assets/safe-plentiful-affordable-poster.jpg">
+            <source src="assets/safe-plentiful-affordable.mp4" type="video/mp4">
+          </video>
+          <figcaption>Watch: Della's three priorities, in 30 seconds.</figcaption>
+        </figure>
+        <figure class="film">
+          <video controls playsinline preload="metadata" width="720" height="900" poster="assets/strong-community-voice-poster.jpg">
+            <source src="assets/strong-community-voice.mp4" type="video/mp4">
+          </video>
+          <figcaption>A strong community voice, in 15 seconds.</figcaption>
+        </figure>
+        <figure class="film">
+          <video controls playsinline preload="metadata" width="720" height="900" poster="assets/experience-water-future-poster.jpg">
+            <source src="assets/experience-water-future.mp4" type="video/mp4">
+          </video>
+          <figcaption>Experience for our water future, in 30 seconds.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -145,6 +174,14 @@ footer small{display:block;margin-top:6px;font-weight:400;font-size:13px;opacity
       <p>Water connects our homes, our communities, and our future. An education leader and former Beaumont City Council member, Dr. Della Condon brings a lifetime of public service to the table.</p>
       <p>Her experience in consumer advocacy reflects a simple belief: people deserve to be heard.</p>
       <p>For the San Gorgonio Pass Water Agency, she supports planning ahead, working together, and making responsible decisions about our water.</p>
+    </div>
+  </section>
+
+  <section id="latest" aria-labelledby="latest-h" hidden>
+    <div class="wrap">
+      <h2 id="latest-h">Latest from <span>Della</span></h2>
+      <ul class="posts"></ul>
+      <p class="more"><a href="https://www.facebook.com/ElectDellaCondon">See every post on Facebook</a></p>
     </div>
   </section>
 
@@ -177,6 +214,32 @@ footer small{display:block;margin-top:6px;font-weight:400;font-size:13px;opacity
     <small>FPPC ID #1390909 · <a href="privacy.html">Privacy</a></small>
   </div>
 </footer>
+
+<script>
+// Daily posts go live on Facebook at 8:00 AM Pacific; show the three most recent that are up.
+const POSTS = /*POSTS*/[{"date":"2026-10-07","title":"Introduction","text":"Hi, I'm Dr. Della Condon, and I'm running for the San Gorgonio Pass Water Agency board, Division 4. This board decides how the Pass gets its imported water and what that water costs. My priorities are safe water, plentiful water and affordable water. Over the next four weeks I'll share what I've learned and why I think affordability deserves a seat at the table. Election day is November 3.","url":"https://www.facebook.com/photo.php?fbid=122102521041499046&type=3"},{"date":"2026-10-08","title":"What SGPWA does","text":"Most of us never see the San Gorgonio Pass Water Agency on a bill, but it's there. Since 1961 SGPWA has brought State Water Project water to a 225-square-mile area covering Calimesa, Beaumont, Banning, Cherry Valley, Cabazon and the Banning Bench, and sold it to our local water retailers. When its costs go up, our retailers' costs go up.","url":"https://www.facebook.com/photo.php?fbid=122102521275499046&type=3"},{"date":"2026-10-09","title":"500 miles","text":"Our imported water travels about 500 miles from the Northern Sierra to reach the Pass. Every mile means pumping, power and pipe, and someone pays for all of it. I want a board that keeps asking what each new cost buys us.","url":"https://www.facebook.com/photo.php?fbid=122102521347499046&type=3"},{"date":"2026-10-10","title":"Your bill already went up","text":"If you're a Beaumont-Cherry Valley Water District customer, your rates went up in May 2025: about $15.97 more per billing cycle for an average home with a standard meter. That's the first step of a five-year schedule. Among the reasons BCVWD gave: \"increased costs for imported water and energy.\" That's where SGPWA's decisions come in.","url":"https://www.facebook.com/photo.php?fbid=122102521449499046&type=3"},{"date":"2026-10-11","title":"A right, in California law","text":"In 2012 California made it state policy that \"every human being has the right to safe, clean, affordable, and accessible water.\" Affordable is right there in the statute, next to safe and clean.","url":"https://www.facebook.com/photo.php?fbid=122102521503499046&type=3"},{"date":"2026-10-12","title":"How many Californians are stretched","text":"The State Water Resources Control Board found that about 21% of the state's water systems, serving about 18% of residents, charge rates above its affordability threshold. Almost one in five Californians.","url":"https://www.facebook.com/photo.php?fbid=122102521569499046&type=3"},{"date":"2026-10-13","title":"Faster than inflation","text":"In Los Angeles County, the average household water bill rose almost 60% from 2015 to 2025, faster than inflation. UCLA researcher Edith de Guzman: \"It is concerning that we have this trend of rates outpacing inflation. Somebody has to pick up the bill.\" In the Pass, that somebody is us.","url":"https://www.facebook.com/photo.php?fbid=122102521629499046&type=3"},{"date":"2026-10-14","title":"It's a national problem too","text":"The U.S. EPA told Congress in December 2024 that between 12.1 and 19.2 million American households lack affordable water service. EPA's water chief, Bruno Pigott: \"Accessing clean and safe water is part of everyday life, and it should be affordable for everyone across the country.\" I agree.","url":"https://www.facebook.com/photo.php?fbid=122102521695499046&type=3"},{"date":"2026-10-15","title":"Where bills are headed","text":"The same EPA report projects the average household drinking water bill could rise from $429 in 2025 to $969 by 2050 as aging systems are rebuilt. Those projects matter. The question for every board is how to pay for them without pricing families out.","url":"https://www.facebook.com/photo.php?fbid=122102521809499046&type=3"},{"date":"2026-10-16","title":"Listening first","text":"I spent my career in education leadership, and I learned that the people affected by a decision usually know something the people making it don't. I will listen to the people before I vote.","url":"https://www.facebook.com/photo.php?fbid=122102521881499046&type=3"},{"date":"2026-10-17","title":"Good news worth saying","text":"This year the state raised the State Water Project allocation from 30% to 45%, bringing SGPWA's total 2026 supply to 17,035 acre-feet. The agency is putting extra water into the ground for dry years, partly through Beaumont-Cherry Valley's recharge facilities. That's good stewardship, and I want more of it.","url":"https://www.facebook.com/photo.php?fbid=122102521977499046&type=3"},{"date":"2026-10-18","title":"Storage is cheaper than scarcity","text":"Water stored underground in a wet year is water we don't have to buy at drought prices later. Banking water is one of the smartest affordability tools a water agency has.","url":"https://www.facebook.com/photo.php?fbid=122102522157499046&type=3"},{"date":"2026-10-19","title":"The big statewide decisions","text":"SGPWA is a partner in large statewide projects. In 2020 its board voted to take at least a 1.22% share of the Delta Conveyance Project, the proposed tunnel under the Delta. Projects like this can improve reliability. They also last for decades, and their costs land on local ratepayers.","url":"https://www.facebook.com/photo.php?fbid=122102522205499046&type=3"},{"date":"2026-10-20","title":"$20 billion","text":"The state's 2024 estimate put the Delta Conveyance Project at $20.1 billion, up from $16 billion, mostly because of inflation. Before the Pass commits further, I want the full cost per household explained in plain language at a public meeting.","url":"https://www.facebook.com/photo.php?fbid=122102522259499046&type=3"},{"date":"2026-10-21","title":"Sites Reservoir","text":"SGPWA is among the largest investors in Sites Reservoir, a planned 1.5-million-acre-foot storage project north of Sacramento. Storage helps us in dry years. Big investments deserve regular, public check-ins on cost and schedule, and I'll ask for them.","url":"https://www.facebook.com/photo.php?fbid=122102522373499046&type=3"},{"date":"2026-10-22","title":"Consumer advocate","text":"My consumer advocacy work taught me to ask one question first: what does this cost the person paying the bill? That question belongs in every water board vote.","url":"https://www.facebook.com/photo.php?fbid=122102522469499046&type=3"},{"date":"2026-10-23","title":"Who feels it most","text":"The State Water Board estimates that 34% of California households earning under 200% of the federal poverty level may need help paying for water. Seniors on fixed incomes and young families feel every increase first.","url":"https://www.facebook.com/photo.php?fbid=122102522631499046&type=3"},{"date":"2026-10-24","title":"Safe comes first","text":"Affordable doesn't mean cutting corners. Our retailers are spending money on new standards for contaminants like Chromium-6 and PFAS, and they should. I want every dollar spent well, and safety is never where we save.","url":"https://www.facebook.com/photo.php?fbid=122102522715499046&type=3"},{"date":"2026-10-25","title":"Working together","text":"\"When we work together, the Pass area benefits.\" That's Beaumont-Cherry Valley Water District GM Dan Jaggers, on SGPWA's joint recharge work this year. I'll bring the same approach: SGPWA, the retailers and the cities at the same table.","url":"https://www.facebook.com/photo.php?fbid=122102522793499046&type=3"},{"date":"2026-10-26","title":"Beaumont roots","text":"I served on the Beaumont City Council, and I've watched the Pass grow. New homes and new families mean more demand for water. Planning for growth so the cost doesn't land on existing residents is part of affordability too.","url":"https://www.facebook.com/photo.php?fbid=122102522853499046&type=3"},{"date":"2026-10-27","title":"Ballots are out","text":"Your vote-by-mail ballot should be at home. SGPWA Division 4 is near the bottom, so keep going after the big races. Check your registration and ballot status here: Riverside County Registrar of Voters: https://www.voteinfo.net/","url":"https://www.facebook.com/photo.php?fbid=122102522919499046&type=3"},{"date":"2026-10-28","title":"Three priorities","text":"Safe water. Plentiful water. Affordable water. Most agencies are good at the first two. I'm running to make sure the third gets the same attention.","url":"https://www.facebook.com/photo.php?fbid=122102522967499046&type=3"},{"date":"2026-10-29","title":"Endorsement","text":"Proud to be endorsed by Dr. Blair Ball, who currently serves on the SGPWA board.","url":"https://www.facebook.com/photo.php?fbid=122102523051499046&type=3"},{"date":"2026-10-30","title":"What I'll do","text":"On the board I will: (1) ask for the cost per household on every major vote, (2) support storing water in wet years, (3) keep reporting on statewide projects public, and (4) listen before I vote.","url":"https://www.facebook.com/photo.php?fbid=122102523123499046&type=3"},{"date":"2026-10-31","title":"The question to ask","text":"Whoever you vote for, ask every candidate one question: how will your votes affect my bill? I've spent this campaign answering it.","url":"https://www.facebook.com/photo.php?fbid=122102523213499046&type=3"},{"date":"2026-11-01","title":"Two days","text":"Two days left. If your ballot is still on the counter, sign it, date it and drop it off today. Drop box locations: Riverside County Registrar of Voters: https://www.voteinfo.net/","url":"https://www.facebook.com/photo.php?fbid=122102523303499046&type=3"},{"date":"2026-11-02","title":"Tomorrow","text":"Tomorrow is election day. Polls are open 7 am to 8 pm, and mailed ballots must be postmarked by November 3. Thank you for reading, sharing and asking questions this month. I'd be honored to have your vote for SGPWA Division 4.","url":"https://www.facebook.com/photo.php?fbid=122102523453499046&type=3"}]/*END*/;
+(() => {
+  const pt = new Intl.DateTimeFormat("en-CA", {timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23"})
+    .formatToParts(new Date()).reduce((o, p) => (o[p.type] = p.value, o), {});
+  const today = `${pt.year}-${pt.month}-${pt.day}`;
+  const live = POSTS.filter(p => p.date < today || (p.date === today && +pt.hour >= 8)).slice(-3).reverse();
+  if (!live.length) return;
+  const list = document.querySelector("#latest .posts");
+  for (const p of live) {
+    const d = new Date(p.date + "T12:00:00");
+    const li = document.createElement("li");
+    li.innerHTML = `<img loading="lazy" width="480" height="600" alt=""><div><time></time><b></b><p></p><a>Read on Facebook</a></div>`;
+    li.querySelector("img").src = `assets/posts/${p.date}.jpg`;
+    li.querySelector("time").dateTime = p.date;
+    li.querySelector("time").textContent = d.toLocaleDateString("en-US", {weekday: "long", month: "long", day: "numeric"});
+    li.querySelector("b").textContent = p.title;
+    li.querySelector("p").textContent = p.text;
+    li.querySelector("a").href = p.url;
+    list.append(li);
+  }
+  document.getElementById("latest").hidden = false;
+})();
+</script>
 
 </body>
 </html>
